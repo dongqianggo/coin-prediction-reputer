@@ -23,15 +23,15 @@ services:
     environment:
       - DATA_PROVIDER_API_ADDRESS=http://truth:8888
 
-  reputer:
-    container_name: reputer
-    image: halfdong/allora-offchain-node:1.4
-    volumes:
-      - ./worker-data:/data
-    depends_on:
-      - truth
-    env_file:
-      - ./worker-data/env_file
+  # reputer:
+  #   container_name: reputer
+  #   image: halfdong/allora-offchain-node:1.4
+  #   volumes:
+  #     - ./worker-data:/data
+  #   depends_on:
+  #     - truth
+  #   env_file:
+  #     - ./worker-data/env_file
 
   loss:
     container_name: loss
