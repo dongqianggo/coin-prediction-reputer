@@ -1,17 +1,16 @@
 services:
   truth:
-    container_name: truth
     build: .
     command: python -u /app/app.py
     environment:
       - DATABASE_PATH=/app/data/prices.db
-      - API_PORT=8000
+      - API_PORT=8888
+      # - ALLORA_VALIDATOR_API_URL=https://allora-api.testnet-1.testnet.allora.network/
       - ALLORA_VALIDATOR_API_URL=https://allora-api.testnet.allora.network/
       - TOKEN=ETH
       - TOKEN_CG_ID=ethereum
-      - BLOCK_TIME_SECONDS=10
     ports:
-      - "8000:8000"
+      - "8888:8888"
     volumes:
       - ./truth-data:/app/data
 
@@ -22,11 +21,11 @@ services:
       - truth
     entrypoint: ["sh", "-c", "while true; sleep 60; do python -u /app/update_app.py; done"]
     environment:
-      - DATA_PROVIDER_API_ADDRESS=http://truth:8000
+      - DATA_PROVIDER_API_ADDRESS=http://truth:8888
 
   reputer:
     container_name: reputer
-    image: alloranetwork/allora-offchain-node:v0.6.0
+    image: halfdong/allora-offchain-node:1.4
     volumes:
       - ./worker-data:/data
     depends_on:
